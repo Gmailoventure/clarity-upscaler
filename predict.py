@@ -281,11 +281,21 @@ class Predictor(BasePredictor):
         multipliers = [scale_factor]
         if scale_factor > 2:
             multipliers = self.calc_scale_factors(scale_factor)
+            print("Upscale your image " + str(len(multipliers)) + " times")
         
-        print("Upscale your image " + str(len(multipliers)) + " times")
+        first_iteration = True
 
         for multiplier in multipliers:
             print("Upscaling with scale_factor: ", multiplier)
+            
+            if not first_iteration:
+                creativity = creativity * 0.9
+                tiling_width = tiling_width + 16
+                tiling_width = max(256, tiling_width)
+                tiling_height = tiling_height + 16
+                tiling_height = max(256, tiling_height)
+                first_iteration = False
+
             payload = {
                 "override_settings": {
                     "sd_model_checkpoint": sd_model,
