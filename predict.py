@@ -289,7 +289,7 @@ class Predictor(BasePredictor):
             print("Upscaling with scale_factor: ", multiplier)
             
             if not first_iteration:
-                creativity = creativity * 0.9
+                creativity = creativity * 0.8
                 tiling_width = tiling_width + 16
                 tiling_width = max(256, tiling_width)
                 tiling_height = tiling_height + 16
